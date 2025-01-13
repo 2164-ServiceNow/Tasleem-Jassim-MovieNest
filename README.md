@@ -1,7 +1,7 @@
-# Project Title : MovieNest
-# Project Description:
+## Project Title : MovieNest
+#### Project Description:
 MovieNext is a dynamic Single Page Application (SPA) that revolutionizes the way users discover and manage their movie preferences. It enables users to search for movies, view comprehensive details such as posters, plots, casts, and ratings, and curate personalized watchlists. Additionally, users can create accounts, log in, and securely access their watchlists across devices. By integrating the TMDb API, MovieNext delivers real-time, accurate movie data in a responsive and visually appealing interface.
-# Technologies Used :
+#### Technologies Used :
 * HTML
 
 * CSS
@@ -12,7 +12,7 @@ MovieNext is a dynamic Single Page Application (SPA) that revolutionizes the way
 
 * TMDb API (https://api.themoviedb.org)
 
-# User Stories:
+#### User Stories:
 
 * As a user, I am able to create an account to securely store and manage my personalized watchlist.
 
@@ -30,7 +30,7 @@ MovieNext is a dynamic Single Page Application (SPA) that revolutionizes the way
 
 *  As a user, I am provided with clear, user-friendly error messages when a search or API call fails, ensuring a seamless experience.
 
-# Collaborators:
+#### Collaborators:
 ShaikTasleem  - [Shaik Tasleem](https://github.com/Shaik-Tasleem)
 
 Mohammed Jassim  - [Mohammed Jassim](https://github.com/Mohammed10Jassim)
