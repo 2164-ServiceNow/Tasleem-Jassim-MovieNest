@@ -8,8 +8,8 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
   $scope.loading = true;
   $scope.errorMessage = '';
 
-  const API_KEY = 'c82153085ae4215963f520dcb3a816f3';
-  const API_URL = '';
+  const API_KEY = '';
+  const API_URL = 'https://api.themoviedb.org/3';
 
   
   $scope.searchMovies = function() {
