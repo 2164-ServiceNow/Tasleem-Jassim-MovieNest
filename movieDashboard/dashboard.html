@@ -19,7 +19,6 @@
       <button class="watchlist-open-btn" ng-click="toggleWatchlist()">My Watchlist</button>
     </div>
 
-    <!-- <h1 class="title">Search A Movie</h1> -->
     <input type="text" ng-model="searchQuery" placeholder="Search for movies..." class="search-bar">
     <button ng-click="searchMovies()" class="search-button" id="btn"><span class="bi bi-person"></span>Search</button>
     <br>
@@ -31,7 +30,6 @@
     <div ng-if="loading" class="loading">Loading...</div>
     <div ng-if="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-    <!-- Movie Cards Section -->
     <div class="grid">
       <div class="movie-card" ng-repeat="movie in filteredMovies" ng-style="{'background-image': 'url(' + movie.i + ')'}">
         <div class="overlay">
@@ -49,7 +47,6 @@
       </div>
     </div>
 
-    <!-- Watchlist Modal -->
     <div class="watchlist-modal" ng-show="isWatchlistOpen">
       <div class="watchlist-content">
         <button class="close-btn" ng-click="toggleWatchlist()">&#x2715;</button>
@@ -71,7 +68,6 @@
   </div>
 
   <script>
-    // Toggle the menu visibility
     function toggleMenu() {
       const menuDropdown = document.getElementById('menuDropdown');
       menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
@@ -82,7 +78,6 @@
       alert('Profile functionality will be implemented here.');
     }
 
-    // Close the menu when clicking outside
     window.onclick = function(event) {
       if (!event.target.matches('.menu-btn')) {
         const dropdowns = document.getElementsByClassName('menu-content');
