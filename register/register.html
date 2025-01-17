@@ -1,0 +1,31 @@
+<head>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+  <div class="hero" ng-controller="register">
+    <div class="form-box">
+      <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" class="toggle-btn"><big><i class="bi bi-person-fill"></i>
+          Register Here</big></button>
+        
+      </div>
+      <div class="social-icons">
+        <a href="#" class="bi bi-facebook" aria-label="Facebook"></a>
+        <a href="#" class="bi bi-instagram" aria-label="Instagram"></a>
+        <a href="#" class="bi bi-youtube" aria-label="YouTube"></a>
+      </div>
+      
+      <form id="register" class="input-group" ng-submit="registerfun()">
+        <input type="text" class="input-field" placeholder="Enter Full Name" required ng-model="id">
+        <input type="email" class="input-field" placeholder="Enter Email" required ng-model="email">
+        <input type="password" class="input-field" placeholder="Enter Password" required ng-model="pass">
+        <input type="checkbox" class="check-box" required><span>Agree terms & conditions</span>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+    </div>
+    
+
+  </div>
+  

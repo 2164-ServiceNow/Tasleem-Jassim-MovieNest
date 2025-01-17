@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project0</title>
+  <link rel="stylesheet" href="../style.css">
+
+</head>
+<body ng-app="demo">
+
+   
+  <div class="container">
+    <a class="button" href="#" style="--color:#1e9bff;" ng-href="#!/">
+      <!-- <span></span>
+      <span></span>
+      <span></span>
+      <span></span> -->
+      Log In
+    </a>
+    <a class="button" href="#" style="--color: #ff1867;" ng-href="#!register">
+      <!-- <span></span>
+      <span></span>
+      <span></span>
+      <span></span> -->
+      Register
+    </a> 
+  </div>
+  <div ng-view>{{60+99}}  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <script src="./index.js"></script>
+  <script src="../signIn/signinController.js"></script>
+  <script src="../register/registerController.js"></script>
+</body>
+</html>
