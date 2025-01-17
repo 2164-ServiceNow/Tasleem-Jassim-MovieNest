@@ -19,10 +19,8 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
     let url;
   
     if ($scope.searchQuery && $scope.searchQuery.trim() !== '') {
-      // If a search query is provided, use the Search API
       url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${$scope.searchQuery}`;
     } else {
-      // If no search query, fetch all movies using the Discover API
       url = `${API_URL}/discover/movie?api_key=${API_KEY}`;
     }
   
@@ -53,7 +51,6 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
   };
   
 
-  // Function to search movies with filters
   $scope.searchMoviesWithFilters = function() {
     $scope.searchMovies(); // Fetch the movies first
     $scope.$watch('movies', function(newValue, oldValue) {
@@ -63,7 +60,6 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
     });
   };
 
-  // Function to filter movies based on multiple criteria
   $scope.filterMovies = function() {
     $scope.filteredMovies = $scope.movies;
 
@@ -80,7 +76,6 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
     }
   };
 
-  // Function to play trailer
   $scope.playTrailer = function(movieId) {
     const url = `${API_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
 
@@ -104,18 +99,15 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
   };
 
  
-  // Function to display movie information
   $scope.showInfo = function(movie) {
     localStorage.setItem('selectedMovie', JSON.stringify(movie));
     window.location.href = 'movie-info.html';
   };
   
 
-  // Logout functionality
   $scope.logout = function() {
     $window.location.href = '/index/index.html'; // Update this to match the actual path
   };  
 
-  // Initialize by fetching movies
   $scope.searchMovies();
 }]);
