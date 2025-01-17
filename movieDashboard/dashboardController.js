@@ -9,39 +9,9 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
   $scope.errorMessage = '';
 
   const API_KEY = 'c82153085ae4215963f520dcb3a816f3';
-  const API_URL = 'https://api.themoviedb.org/3';
+  const API_URL = '';
 
-  // Function to fetch movies based on the search query
-  // $scope.searchMovies = function() {
-  //   $scope.loading = true;
-  //   $scope.errorMessage = '';
-  //   const url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${$scope.searchQuery}`;
-
-  //   $http.get(url)
-  //     .then(function(response) {
-  //       if (response.data.results) {
-  //         $scope.movies = response.data.results.map(movie => ({
-  //           id: movie.id,
-  //           l: movie.title,
-  //           y: movie.release_date.split('-')[0],
-  //           r: movie.original_language,
-  //           ad: movie.vote_average,
-  //           ol: movie.original_title,
-  //           i: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-  //           ticketsAvailable: Math.floor(Math.random() * 100) // Random tickets available
-  //         }));
-  //         $scope.filteredMovies = $scope.movies;
-  //       } else {
-  //         $scope.movies = [];
-  //         $scope.errorMessage = 'No movies found.';
-  //       }
-  //     }).catch(function(error) {
-  //       console.error('Error fetching movies:', error);
-  //       $scope.errorMessage = 'Error fetching movies. Please try again later.';
-  //     }).finally(function() {
-  //       $scope.loading = false;
-  //     });
-  // };
+  
   $scope.searchMovies = function() {
     $scope.loading = true;
     $scope.errorMessage = '';
@@ -133,35 +103,7 @@ app1.controller('dashboardController', ['$scope', '$http', '$window', function($
       });
   };
 
-  // Function to add movie to the watchlist
-  $scope.addToWatchlist = function(movie) {
-    if (!$scope.watchlist.some(item => item.id === movie.id)) {
-      $scope.watchlist.push(movie); // Add to watchlist if not already present
-      alert(`"${movie.l}" has been added to your watchlist!`);
-    } else {
-      alert(`"${movie.l}" is already in your watchlist.`);
-    }
-  };
-
-  // Function to remove movie from the watchlist
-  $scope.removeFromWatchlist = function(movie) {
-    const index = $scope.watchlist.findIndex(item => item.id === movie.id);
-    if (index !== -1) {
-      $scope.watchlist.splice(index, 1); // Remove the movie from the watchlist
-      alert(`"${movie.l}" has been removed from your watchlist.`);
-    }
-  };
-
-  // Function to toggle watchlist visibility
-  $scope.toggleWatchlist = function() {
-    $scope.isWatchlistOpen = !$scope.isWatchlistOpen;
-    if ($scope.isWatchlistOpen) {
-      document.querySelector('.watchlist-modal').style.display = 'block';
-    } else {
-      document.querySelector('.watchlist-modal').style.display = 'none';
-    }
-  };
-
+ 
   // Function to display movie information
   $scope.showInfo = function(movie) {
     localStorage.setItem('selectedMovie', JSON.stringify(movie));
