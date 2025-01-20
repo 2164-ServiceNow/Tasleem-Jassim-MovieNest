@@ -17,7 +17,6 @@
           <button class="menu-item" ng-click="logout()">Logout</button>
         </div>
       </div>
-      <button class="watchlist-open-btn" ng-click="toggleWatchlist()">My Watchlist</button>
     </div>
    
     
@@ -51,51 +50,10 @@
           <p>Tickets Available: {{ movie.ticketsAvailable || 'N/A' }}</p> -->
           <div class="card-buttons">
             <button class="info-btn" title="Info" ng-click="showInfo(movie)">Info</button>
-            <button class="watchlist-btn" title="Add to Watchlist" ng-click="addToWatchlist(movie)">Add to Watchlist</button>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Watchlist Modal -->
-    <!-- <div class="watchlist-modal" ng-show="isWatchlistOpen">
-      <div class="watchlist-content">
-        <button class="close-btn" ng-click="toggleWatchlist()">&#x2715;</button>
-        <h1 class="title">My Watchlist</h1>
-        <div class="watchlist-container" ng-if="watchlist.length > 0">
-          <div class="watchlist-card" ng-repeat="movie in watchlist">
-            <div class="watchlist-details">
-              <h3>{{ movie.l }}</h3>
-              <p>Year: {{ movie.y }}</p>
-              <p>Language: {{ movie.r }}</p>
-              <p>Tickets Available: {{ movie.ticketsAvailable || 'N/A' }}</p>
-            </div>
-            <button class="remove-btn" ng-click="removeFromWatchlist(movie)">Remove</button>
-          </div>
-        </div>
-        <div ng-if="watchlist.length === 0" class="empty-watchlist">Your watchlist is empty.</div>
-      </div>
-    </div> -->
-    <div class="watchlist-modal" ng-show="isWatchlistOpen">
-      <div class="watchlist-content">
-        <button class="close-btn" ng-click="toggleWatchlist()">&#x2715;</button>
-        <h1 class="title">My Watchlist</h1>
-        <div class="watchlist-container" ng-if="watchlist.length > 0">
-          <div class="watchlist-card" ng-repeat="movie in watchlist">
-            <img ng-src="{{movie.i}}" alt="{{movie.l}}" />
-            <div class="watchlist-details">
-              <h3>{{ movie.l }}</h3>
-              <p>Year: {{ movie.y }}</p>
-              <p>Language: {{ movie.r }}</p>
-            </div>
-            <button class="remove-btn" ng-click="removeFromWatchlist(movie)">Remove</button>
-          </div>
-        </div>
-        <div ng-if="watchlist.length === 0" class="empty-watchlist">Your watchlist is empty.</div>
-      </div>
-    </div>
-    
-  </div>
 
   <script>
     function toggleMenu() {
@@ -103,9 +61,7 @@
       menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
     }
 
-    function viewProfile() {
-      alert('Profile functionality will be implemented here.');
-    }
+   
 
     window.onclick = function(event) {
       if (!event.target.matches('.menu-btn')) {
