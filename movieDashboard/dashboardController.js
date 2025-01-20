@@ -12,37 +12,7 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
   const API_URL = '';
 
   
-  $scope.trustedTrailerUrl = ''; 
-  $scope.isTrailerModalOpen = false; 
-
-  $scope.playTrailer = function(movieId) {
-    const url = `${API_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
-
-    $http.get(url)
-      .then(function(response) {
-        if (response.data.results && response.data.results.length > 0) {
-          const trailer = response.data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-          if (trailer) {
-            const videoUrl = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
-            $scope.trustedTrailerUrl = $sce.trustAsResourceUrl(videoUrl); // Trust the URL
-            $scope.isTrailerModalOpen = true;
-          } else {
-            alert('Trailer not found.');
-          }
-        } else {
-          alert('Trailer not found.');
-        }
-      }).catch(function(error) {
-        console.error('Error fetching trailer:', error);
-        alert('Error fetching trailer. Please try again later.');
-      });
-  };
-
-  $scope.closeTrailerModal = function() {
-    $scope.isTrailerModalOpen = false;
-    $scope.trustedTrailerUrl = ''; // Clear the URL
-  };
-
+ 
 
   $scope.searchMovies = function() {
     $scope.loading = true;
@@ -102,22 +72,7 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
   };
 
   
-  $scope.addToWatchlist = function(movie) {
-    if (!$scope.watchlist.some(item => item.id === movie.id)) {
-      $scope.watchlist.push(movie); 
-      alert(`"${movie.l}" has been added to your watchlist!`);
-    } else {
-      alert(`"${movie.l}" is already in your watchlist.`);
-    }
-  };
-
-  $scope.removeFromWatchlist = function(movie) {
-    const index = $scope.watchlist.findIndex(item => item.id === movie.id);
-    if (index !== -1) {
-      $scope.watchlist.splice(index, 1); 
-      alert(`"${movie.l}" has been removed from your watchlist.`);
-    }
-  };
+  
 
  
  $scope.showInfo = function(movie) {
@@ -125,12 +80,6 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
   localStorage.setItem('previousPage', 'search'); 
   window.location.href = 'movie-info.html';
 };
-
-  
-
- 
-
-  $scope.searchMovies();
   $scope.signIn = function(email, pass) {
     $http.post('/api/signin', { email, pass }).then(response => {
       localStorage.setItem('loggedInUser', email);
