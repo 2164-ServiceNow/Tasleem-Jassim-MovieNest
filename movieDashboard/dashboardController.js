@@ -2,9 +2,9 @@ var app1 = angular.module("movieApp", []);
 app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', function($scope, $http, $window,$sce) {
   $scope.movies = [];
   $scope.filteredMovies = [];
-  $scope.watchlist = []; // Array to store movies in the watchlist
-  $scope.isWatchlistOpen = false; // State to manage watchlist modal visibility
-  $scope.searchQuery = ''; // Default search query for the example
+  $scope.watchlist = []; 
+  $scope.isWatchlistOpen = false;
+  $scope.searchQuery = '';
   $scope.loading = true;
   $scope.errorMessage = '';
 
@@ -13,8 +13,8 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
   
 
   
-  $scope.trustedTrailerUrl = ''; // To store the trusted URL
-  $scope.isTrailerModalOpen = false; // To track modal visibility
+  $scope.trustedTrailerUrl = ''; 
+  $scope.isTrailerModalOpen = false;
 
   $scope.playTrailer = function (movieId) {
   const url = `${API_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
@@ -77,7 +77,7 @@ $scope.showInfo = function(movie) {
             ad: movie.vote_average,
             ol: movie.original_title,
             i: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '',
-            ticketsAvailable: Math.floor(Math.random() * 100) // Random tickets available
+            ticketsAvailable: Math.floor(Math.random() * 100) 
           }));
           $scope.filteredMovies = $scope.movies;
         } else {
@@ -98,12 +98,11 @@ $scope.showInfo = function(movie) {
     $scope.searchMovies(); // Fetch the movies first
     $scope.$watch('movies', function(newValue, oldValue) {
       if (newValue !== oldValue) {
-        $scope.filterMovies(); // Apply filters after movies are fetched
+        $scope.filterMovies(); 
       }
     });
   };
 
-  // Function to filter movies based on multiple criteria
   $scope.filterMovies = function() {
     $scope.filteredMovies = $scope.movies;
 
@@ -120,13 +119,11 @@ $scope.showInfo = function(movie) {
     }
   };
 
-  // Initialize watchlist from localStorage
 const storedWatchlist = localStorage.getItem('watchlist');
 $scope.watchlist = storedWatchlist ? JSON.parse(storedWatchlist) : [];
 
 
   
-  // Function to add movie to the watchlist
 $scope.addToWatchlist = function(movie) {
   if (!$scope.watchlist.some(item => item.id === movie.id)) {
     $scope.watchlist.push(movie); // Add to watchlist if not already present
@@ -137,7 +134,6 @@ $scope.addToWatchlist = function(movie) {
   }
 };
 
-// Function to remove movie from the watchlist
 $scope.removeFromWatchlist = function(movie) {
   const index = $scope.watchlist.findIndex(item => item.id === movie.id);
   if (index !== -1) {
@@ -148,7 +144,6 @@ $scope.removeFromWatchlist = function(movie) {
 };
 
 
-  // Function to toggle watchlist visibility
   $scope.toggleWatchlist = function() {
     $scope.isWatchlistOpen = !$scope.isWatchlistOpen;
     if ($scope.isWatchlistOpen) {
@@ -158,7 +153,6 @@ $scope.removeFromWatchlist = function(movie) {
     }
   };
 
-  // Function to display movie information
 //  $scope.showInfo = function(movie) {
 //   localStorage.setItem('selectedMovie', JSON.stringify(movie));
 //   localStorage.setItem('previousPage', 'search'); // Store a flag indicating the user came from the search page
