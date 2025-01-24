@@ -12,7 +12,7 @@ app.controller('register', ['$scope', '$http', '$location', function ($scope, $h
     { text: 'At least 4 characters', isValid: false }
   ];
 
-  // Password Strength Checker
+
   $scope.checkPasswordStrength = function (password) {
     const regexUpperCase = /[A-Z]/;
     const regexLowerCase = /[a-z]/;
@@ -21,19 +21,19 @@ app.controller('register', ['$scope', '$http', '$location', function ($scope, $h
 
     let strength = 0;
 
-    // Validate each constraint
+   
     $scope.passwordMessages[0].isValid = regexUpperCase.test(password);
     $scope.passwordMessages[1].isValid = regexLowerCase.test(password);
     $scope.passwordMessages[2].isValid = regexNumber.test(password);
     $scope.passwordMessages[3].isValid = regexMinLength.test(password);
 
-    // Increment strength based on validations
+  
     if ($scope.passwordMessages[0].isValid) strength += 25;
     if ($scope.passwordMessages[1].isValid) strength += 25;
     if ($scope.passwordMessages[2].isValid) strength += 25;
     if ($scope.passwordMessages[3].isValid) strength += 25;
 
-    // Update strength, color, and message
+   
     $scope.passwordStrength = strength;
     if (strength === 100) {
       $scope.progressColor = 'green';
@@ -47,7 +47,7 @@ app.controller('register', ['$scope', '$http', '$location', function ($scope, $h
     }
   };
 
-  // Registration Functionality
+
   $scope.registerfun = function () {
     const obj = {
       id: $scope.id,
