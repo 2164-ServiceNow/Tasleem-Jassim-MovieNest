@@ -2,9 +2,9 @@ var app1 = angular.module("movieApp", []);
 app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', function($scope, $http, $window,$sce) {
   $scope.movies = [];
   $scope.filteredMovies = [];
-  $scope.watchlist = []; // Array to store movies in the watchlist
-  $scope.isWatchlistOpen = false; // State to manage watchlist modal visibility
-  $scope.searchQuery = ''; // Default search query for the example
+  $scope.watchlist = []; 
+  $scope.isWatchlistOpen = false;
+  $scope.searchQuery = '';
   $scope.loading = true;
   $scope.errorMessage = '';
 
@@ -13,8 +13,8 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
   
 
   
-  $scope.trustedTrailerUrl = ''; // To store the trusted URL
-  $scope.isTrailerModalOpen = false; // To track modal visibility
+  $scope.trustedTrailerUrl = ''; 
+  $scope.isTrailerModalOpen = false; 
 
   $scope.playTrailer = function (movieId) {
   const url = `${API_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
@@ -26,8 +26,8 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
       );
       if (trailer) {
         const videoUrl = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
-        $scope.trustedTrailerUrl = $sce.trustAsResourceUrl(videoUrl); // Trust the URL
-        $scope.isTrailerModalOpen = true; // Show the side modal
+        $scope.trustedTrailerUrl = $sce.trustAsResourceUrl(videoUrl); 
+        $scope.isTrailerModalOpen = true; 
       } else {
         alert("Trailer not found.");
       }
@@ -41,8 +41,8 @@ app1.controller('dashboardController', ['$scope', '$http', '$window','$sce', fun
 };
 
 $scope.closeTrailerModal = function () {
-  $scope.isTrailerModalOpen = false; // Close the side modal
-  $scope.trustedTrailerUrl = ""; // Clear the URL
+  $scope.isTrailerModalOpen = false; 
+  $scope.trustedTrailerUrl = ""; 
 };
 $scope.showInfo = function(movie) {
   localStorage.setItem('selectedMovie', JSON.stringify(movie));
@@ -59,10 +59,10 @@ $scope.showInfo = function(movie) {
     let url;
   
     if ($scope.searchQuery && $scope.searchQuery.trim() !== '') {
-      // If a search query is provided, use the Search API
+     
       url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${$scope.searchQuery}`;
     } else {
-      // If no search query, fetch all movies using the Discover API
+ PI
       url = `${API_URL}/discover/movie?api_key=${API_KEY}`;
     }
   
@@ -77,7 +77,7 @@ $scope.showInfo = function(movie) {
             ad: movie.vote_average,
             ol: movie.original_title,
             i: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '',
-            ticketsAvailable: Math.floor(Math.random() * 100) // Random tickets available
+            ticketsAvailable: Math.floor(Math.random() * 100) 
           }));
           $scope.filteredMovies = $scope.movies;
         } else {
@@ -93,17 +93,17 @@ $scope.showInfo = function(movie) {
   };
   
 
-  // Function to search movies with filters
+
   $scope.searchMoviesWithFilters = function() {
-    $scope.searchMovies(); // Fetch the movies first
+    $scope.searchMovies(); 
     $scope.$watch('movies', function(newValue, oldValue) {
       if (newValue !== oldValue) {
-        $scope.filterMovies(); // Apply filters after movies are fetched
+        $scope.filterMovies();
       }
     });
   };
 
-  // Function to filter movies based on multiple criteria
+
   $scope.filterMovies = function() {
     $scope.filteredMovies = $scope.movies;
 
@@ -120,35 +120,34 @@ $scope.showInfo = function(movie) {
     }
   };
 
-  // Initialize watchlist from localStorage
 const storedWatchlist = localStorage.getItem('watchlist');
 $scope.watchlist = storedWatchlist ? JSON.parse(storedWatchlist) : [];
 
 
   
-  // Function to add movie to the watchlist
+
 $scope.addToWatchlist = function(movie) {
   if (!$scope.watchlist.some(item => item.id === movie.id)) {
-    $scope.watchlist.push(movie); // Add to watchlist if not already present
-    localStorage.setItem('watchlist', JSON.stringify($scope.watchlist)); // Save to localStorage
+    $scope.watchlist.push(movie); 
+    localStorage.setItem('watchlist', JSON.stringify($scope.watchlist));
     alert(`"${movie.l}" has been added to your watchlist!`);
   } else {
     alert(`"${movie.l}" is already in your watchlist.`);
   }
 };
 
-// Function to remove movie from the watchlist
+
 $scope.removeFromWatchlist = function(movie) {
   const index = $scope.watchlist.findIndex(item => item.id === movie.id);
   if (index !== -1) {
-    $scope.watchlist.splice(index, 1); // Remove the movie from the watchlist
-    localStorage.setItem('watchlist', JSON.stringify($scope.watchlist)); // Update localStorage
+    $scope.watchlist.splice(index, 1); 
+    localStorage.setItem('watchlist', JSON.stringify($scope.watchlist));
     alert(`"${movie.l}" has been removed from your watchlist.`);
   }
 };
 
 
-  // Function to toggle watchlist visibility
+
   $scope.toggleWatchlist = function() {
     $scope.isWatchlistOpen = !$scope.isWatchlistOpen;
     if ($scope.isWatchlistOpen) {
@@ -158,12 +157,7 @@ $scope.removeFromWatchlist = function(movie) {
     }
   };
 
-  // Function to display movie information
-//  $scope.showInfo = function(movie) {
-//   localStorage.setItem('selectedMovie', JSON.stringify(movie));
-//   localStorage.setItem('previousPage', 'search'); // Store a flag indicating the user came from the search page
-//   window.location.href = 'movie-info.html';
-// };
+ 
 $scope.showInfo = function(movie) {
   localStorage.setItem('selectedMovie', JSON.stringify(movie));
   localStorage.setItem('previousPage', 'search');
@@ -173,13 +167,12 @@ $scope.showInfo = function(movie) {
 
   
 
-  // Logout functionality
+  
 $scope.logout = function() {
-  localStorage.removeItem('loggedInUser'); // Remove logged-in user data only
-  $window.location.href = '/index/index.html'; // Redirect to the login page
+  localStorage.removeItem('loggedInUser'); 
+  $window.location.href = '/index/index.html'; 
 };
 
-  // Initialize by fetching movies
   $scope.searchMovies();
   $scope.signIn = function(email, pass) {
     $http.post('/api/signin', { email, pass }).then(response => {
@@ -190,13 +183,13 @@ $scope.logout = function() {
       alert(error.data.message || 'Error signing in.');
     });
   };
-  // Add to controller
-$scope.isProfileModalOpen = false; // Profile modal visibility
-$scope.userProfile = {}; // Logged-in user profile details
+ 
+$scope.isProfileModalOpen = false; 
+$scope.userProfile = {}; 
 
 $scope.viewProfile = function() {
   const loggedInEmail = localStorage.getItem('loggedInUser');
-  console.log("Logged-in email:", loggedInEmail); // Debug email
+  console.log("Logged-in email:", loggedInEmail); 
 
   if (!loggedInEmail) {
     alert('No user is logged in. Please log in to view your profile.');
@@ -205,19 +198,19 @@ $scope.viewProfile = function() {
 
   $http.get(`/api/profile/${loggedInEmail}`)
     .then(response => {
-      console.log("Profile fetched successfully:", response.data); // Debug response
-      $scope.userProfile = response.data; // Set user data to scope
-      $scope.isProfileModalOpen = true; // Open modal
+      console.log("Profile fetched successfully:", response.data);
+      $scope.userProfile = response.data; 
+      $scope.isProfileModalOpen = true; 
     })
     .catch(error => {
-      console.error("Error fetching profile details:", error); // Log error
+      console.error("Error fetching profile details:", error); 
       alert('Error fetching profile details. Please try again later.');
     });
 };
 
 
 
-// Function to close profile modal
+
 $scope.closeProfileModal = function() {
   $scope.isProfileModalOpen = false;
 };
