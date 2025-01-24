@@ -1,4 +1,4 @@
-<head>
+<!-- <head>
   <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -7,13 +7,13 @@
     
     <div class="button-box">
       <div id="btn"></div>
-      <button type="button" class="toggle-btn" onclick="login()"><big>IMDB 2.0</big></button>
+      <button type="button" class="toggle-btn" onclick="login()"><big>Login Here</big></button>
     
     </div>
     <div class="social-icons">
-      <img src="./../Images/fb.png">
-      <img src="./../Images/tw.png">
-      <img src="./../Images/gp.png">
+      <a href="#" class="bi bi-facebook" aria-label="Facebook"></a>
+      <a href="#" class="bi bi-instagram" aria-label="Instagram"></a>
+      <a href="#" class="bi bi-youtube" aria-label="YouTube"></a>
     </div>
     <form id="login" class="input-group" ng-submit="signinfun()">
       <input type="text" class="input-field" placeholder="Enter Email" required ng-model="email">
@@ -25,4 +25,49 @@
   </div>
   
 
-</div>
+</div> -->
+<!DOCTYPE html>
+<html lang="en" ng-app="movieApp" ng-controller="signin">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <title>Login</title>
+</head>
+<body>
+  <div class="hero">
+    <div class="form-box">
+      <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" class="toggle-btn"><big>Login Here</big></button>
+      </div>
+      <div class="social-icons">
+        <a href="#" class="bi bi-facebook" aria-label="Facebook"></a>
+        <a href="#" class="bi bi-instagram" aria-label="Instagram"></a>
+        <a href="#" class="bi bi-youtube" aria-label="YouTube"></a>
+      </div>
+      <!-- Login Form -->
+      <form id="login" class="input-group" ng-submit="signinfun()">
+        <input type="email" class="input-field" placeholder="Enter Email" required ng-model="email">
+        <input type="password" class="input-field" placeholder="Enter Password" required ng-model="pass">
+        <div class="remember-password">
+          <input type="checkbox" class="check-box" id="rememberPassword">
+          <label for="rememberPassword">Remember Password</label>
+        </div>
+        <button type="submit" class="submit-btn">Log In</button>
+      </form>
+      <br>
+      <p>
+        Don't have an account?
+         
+        <a href="#!register">Register Here</a>
+      </p>
+    </div>
+    
+  </div>
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="/path/to/your/controller.js"></script>
+</body>
+</html>

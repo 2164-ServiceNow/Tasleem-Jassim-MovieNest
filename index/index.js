@@ -14,7 +14,11 @@ app.config(function($routeProvider) {
       templateUrl: "/movieDashboard/dashboard.html",
       controller: "dashboardController"
     })
+    .when('/signin', {
+      templateUrl: '/signIn/signin.html',
+      controller: 'signinController'
+    })
     .otherwise({
-      redirectTo: "/"
+      redirectTo: "/signin"
     });
 });

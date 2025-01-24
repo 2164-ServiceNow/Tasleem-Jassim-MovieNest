@@ -1,29 +1,44 @@
 <head>
   <link rel="stylesheet" href="/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
-  <div class="hero" ng-controller="register">
-    <div class="form-box">
-      <div class="button-box">
-        <div id="btn"></div>
-        <button type="button" class="toggle-btn"><big>IMDB 2.0</big></button>
-        
-      </div>
-      <div class="social-icons">
-        <img src="./../Images/fb.png">
-        <img src="./../Images/tw.png">
-        <img src="./../Images/gp.png">
-      </div>
-      
-      <form id="register" class="input-group" ng-submit="registerfun()">
-        <input type="text" class="input-field" placeholder="Enter Full Name" required ng-model="id">
-        <input type="email" class="input-field" placeholder="Enter Email" required ng-model="email">
-        <input type="password" class="input-field" placeholder="Enter Password" required ng-model="pass">
-        <input type="checkbox" class="check-box" required><span>Agree terms & conditions</span>
-        <button type="submit" class="submit-btn">Register</button>
-      </form>
+<div class="hero" ng-controller="register">
+  <div class="form-box">
+    <div class="button-box">
+      <div id="btn"></div>
+      <button type="button" class="toggle-btn">
+        <big><i class="bi bi-person-fill"></i> Register Here</big>
+      </button>
     </div>
-    
+    <div class="social-icons">
+      <a href="#" class="bi bi-facebook" aria-label="Facebook"></a>
+      <a href="#" class="bi bi-instagram" aria-label="Instagram"></a>
+      <a href="#" class="bi bi-youtube" aria-label="YouTube"></a>
+    </div>
 
+    <form id="register" class="input-group" ng-submit="registerfun()">
+      <input type="text" class="input-field" placeholder="Enter Full Name" required ng-model="id">
+      <input type="email" class="input-field" placeholder="Enter Email" required ng-model="email">
+      <input type="password" class="input-field" placeholder="Enter Password" required ng-model="pass" ng-change="checkPasswordStrength(pass)">
+      
+      <!-- Progress Bar for Password Strength -->
+      <div class="progress-bar-container">
+        <div class="progress-bar" ng-style="{'width': passwordStrength + '%', 'background-color': progressColor}"></div>
+      </div>
+      <ul class="password-constraints">
+        <li ng-repeat="message in passwordMessages" ng-class="{'valid': message.isValid}">
+          {{message.text}}
+        </li>
+      </ul>
+      <span class="password-hint">{{passwordHint}}</span>
+
+      <input type="checkbox" class="check-box" required><span>Agree terms & conditions</span>
+      <button type="submit" class="submit-btn" ng-disabled="passwordStrength < 100">Register</button>
+    </form>
+    <p>
+      Already have an account? 
+      <a href="#!signin">Log In Here</a>
+    </p>
   </div>
-  
+</div>

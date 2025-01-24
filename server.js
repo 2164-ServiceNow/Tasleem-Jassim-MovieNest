@@ -46,7 +46,7 @@ app.post('/api/register', async (req, res) => {
       return res.status(400).json({ message: 'Email already exists' });
     }
 
-    db.users.push({ id, email, pass });
+    db.users.push({ id, email, pass});
     await writeDB(db);
 
     res.status(200).json({ message: 'Registration successful' });
@@ -96,13 +96,83 @@ app.get('/dashboard', (req, res) => {
 });
 
 // Serve the dashboard page
-app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'movieDashboard', 'dashboard.html'));
-});
+// app.get('/dashboard', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'movieDashboard', 'dashboard.html'));
+// });
 
 
 
 app.listen(port, () => {
   // console.log('Server running on' http://localhost:${port}');
 });
+// Add a movie to the watchlist
+app.post('/api/watchlist/add', async (req, res) => {
+  try {
+    const { email, movie } = req.body;
+    
+
+    if (!email || !movie) {
+      return res.status(400).json({ message: 'Email and movie data are required' });
+    }
+
+    let db = await readDB();
+    const user = db.users.find(user => user.email === email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the movie already exists in the watchlist
+    if (user.watchlist.find(item => item.id === movie.id)) {
+      return res.status(400).json({ message: 'Movie already in watchlist' });
+    }
+
+    user.watchlist.push(movie);
+    await writeDB(db);
+
+    res.status(200).json({ message: 'Movie added to watchlist' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get the watchlist for a user
+app.get('/api/watchlist/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    let db = await readDB();
+    const user = db.users.find(user => user.email === email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user.watchlist || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+// Get the profile details of a user
+app.get('/api/profile/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    let db = await readDB();
+    const user = db.users.find(user => user.email === email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 

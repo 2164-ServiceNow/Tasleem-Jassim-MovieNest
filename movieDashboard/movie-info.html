@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="movieApp" ng-controller="dashboardController">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Info</title>
+  <link rel="stylesheet" href="../movieDashboard/styles1.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="../movieDashboard/dashboardController.js"></script>
+</head>
+<body>
+  <div id="poster-details-container" class="movie-info-container">
+    <div class="poster-container">
+      <img id="movie-poster" alt="Movie Poster">
+    </div>
+    <div class="details-container">
+      <h1 id="movie-title"></h1>
+      <p><strong>Year:</strong> <span id="movie-year"></span></p>
+      <p><strong>Language:</strong> <span id="movie-language"></span></p>
+      <p><strong>Original Title:</strong> <span id="movie-original-title"></span></p>
+      <p><strong>Vote Average:</strong> <span id="movie-vote-average"></span></p>
+      <p><strong>Tickets Available:</strong> <span id="movie-tickets"></span></p>
+      <p><strong>Overview:</strong> <span id="movie-overview"></span></p>
+      <button onclick="goBack()" class="back-button">Back</button>
+    </div>
+  </div>
+  
+
+  <div class="related-movies-container">
+    <h2>Related Movies</h2>
+    <div id="related-movies" class="related-movies-grid"></div>
+  </div>
+
+  <script>
+    const API_KEY = 'c82153085ae4215963f520dcb3a816f3';
+    const API_URL = 'https://api.themoviedb.org/3';
+
+    // Load selected movie and populate its details
+    document.addEventListener('DOMContentLoaded', () => {
+      const movie = JSON.parse(localStorage.getItem('selectedMovie'));
+
+      if (!movie) {
+        alert('No movie details found. Redirecting to the dashboard.');
+        goBack();
+        return;
+      }
+
+      // Populate movie details
+      document.getElementById('movie-poster').src = movie.i || '';
+      document.getElementById('movie-title').textContent = movie.l || 'N/A';
+      document.getElementById('movie-year').textContent = movie.y || 'N/A';
+      document.getElementById('movie-language').textContent = movie.r || 'N/A';
+      document.getElementById('movie-original-title').textContent = movie.ol || 'N/A';
+      document.getElementById('movie-vote-average').textContent = movie.ad || 'N/A';
+      document.getElementById('movie-tickets').textContent = movie.ticketsAvailable || 'N/A';
+      document.getElementById('movie-overview').textContent = movie.overview || 'N/A';
+
+      fetchRelatedMovies(movie);
+    });
+
+    // Fetch related movies and display them
+    function fetchRelatedMovies(movie) {
+      const url = `${API_URL}/discover/movie?api_key=${API_KEY}&with_original_language=${movie.r}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.results) {
+            const relatedMoviesContainer = document.getElementById('related-movies');
+            data.results.forEach(relatedMovie => {
+              const movieCard = document.createElement('div');
+              movieCard.classList.add('related-movie-card');
+              movieCard.innerHTML = `
+                <img src="https://image.tmdb.org/t/p/w500${relatedMovie.poster_path}" alt="${relatedMovie.title}">
+                <h3>${relatedMovie.title}</h3>
+                <p>${relatedMovie.release_date ? relatedMovie.release_date.split('-')[0] : 'N/A'}</p>
+              `;
+              relatedMoviesContainer.appendChild(movieCard);
+            });
+          }
+        })
+        .catch(error => console.error('Error fetching related movies:', error));
+    }
+
+    // Go back to the previous page
+    function goBack() {
+      const previousPage = localStorage.getItem('previousPage');
+      if (previousPage === 'search') {
+        window.history.back();
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>

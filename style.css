@@ -6,13 +6,13 @@
 .hero{
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(./Images/banner.jpg);
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(./Images/myimage.avif);
   background-position: center;
   background-size: cover;
   position: absolute;
 }
 
-.form-box{
+/* .form-box{
   width: 380px;
   height: 480px;
   position: relative;
@@ -20,12 +20,13 @@
   background: #fff;
   padding: 5px;
  
-}
+} */
+
 
 .button-box{
-  width: 100px;
+  width: 150px;
   margin: 35px auto;
-  margin-left: 130px;
+  margin-left: 100px;
   position: relative;
   box-shadow: 0 0 20px 9px #ff61241f;
   border-radius: 30px;
@@ -40,7 +41,7 @@
   outline: none;
   position: relative;
 }
-#btn{
+/* #btn{
   top: 0;
   left: 0;
   position: absolute;
@@ -49,7 +50,7 @@
   background: linear-gradient(to right, #ff105f, #ffad06);
   border-radius: 30px;
   transition: .5s;
-}
+} */
 
 .social-icons{
   margin: 30px auto;
@@ -64,7 +65,7 @@
   border-radius: 50%;
 }
 
-.input-group{
+/* .input-group{
   top: 180px;
   position: absolute;
   width: 280px;
@@ -82,14 +83,14 @@
   outline: none;
   background: transparent;
 
-}
+} */
 
 .submit-btn{
   width: 85%;
   padding: 10px 30px;
   cursor: pointer;
   display: block;
-  margin: auto;
+margin-top: 30px;  
   background: linear-gradient(to right,#ff105f, #ffad06);
   border: 0;
   outline: none;
@@ -97,7 +98,7 @@
 }
 
 .check-box{
-  margin: 30px 10px 30px 0;
+  margin: 20px 10px 20px;
 }
 
 span{
@@ -154,27 +155,25 @@ span{
 }
 
 .button {
-  position: relative;
-  padding: 16px 30px;
-  font-size: 1.5rem;
-  color: var(--color);
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
-  text-shadow: 0 0 15px var(--color);
-  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color:red;
+  border: none;
+  border-radius: 5px;
   text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  transition: 0.5s;
-  z-index: 1;
+  letter-spacing: 0.05rem;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
 .button:hover {
-  color: #fff;
-  border: 2px solid rgba(0, 0, 0, 0);
-  box-shadow: 0 0 0px var(--color);
+  background-color: rgb(198, 12, 12);
 }
 
-.button::before {
+/* .button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -275,4 +274,99 @@ span{
 .button:hover span:nth-child(4 ) {
   bottom: 50%;
 }
+   */
+   a {
+    text-decoration: none;
+  }
   
+  a.button {
+    text-decoration: none; /* Ensure no underline for buttons specifically */
+  }
+  .form-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(81, 41, 104, 0.08); /* Transparent black */
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    margin: 20px auto;
+    backdrop-filter: blur(10px); /* Blurred background */
+  }
+
+  .form-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.2); /* Transparent white for inputs */
+    color: #fff;
+  }
+
+  .form-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Placeholder color */
+  }
+
+  .form-box input:focus {
+    outline: none;
+    border-color: #6838803b;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .form-box button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: goldenrod;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .form-box button:hover {
+    background-color: #218838;
+  }
+/* Progress Bar Container */
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.password-hint {
+  font-size: 12px;
+  color: gray;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Password Constraints List */
+.password-constraints {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 12px;
+  color: red;
+}
+
+.password-constraints .valid {
+  color: green;
+  font-weight: bold;
+}
+a{
+  color: #be9721;
+}

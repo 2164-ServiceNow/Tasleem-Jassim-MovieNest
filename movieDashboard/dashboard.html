@@ -3,77 +3,201 @@
 <head>
   <title>Movie Dashboard</title>
   <link rel="stylesheet" href="./styles1.css">
-
 </head>
-  <body ng-app="movieApp">
-    <div ng-controller="dashboardController" class="container1">
+<body ng-app="movieApp">
+  <div ng-controller="dashboardController" class="container1">
+    <!-- Navigation Bar -->
     <div class="nav-bar">
-      <h1>IMDB 2.0</h1>
-      <div class="dropdown">
-        <button class="nav-button" onclick="toggleDropdown()"><img src="https://lh3.googleusercontent.com/oUUiPB9sq3ACq4bUaRmo8pgvC4FUpRRrQKcGIBSOsafawZfRpF1vruFeYt6uCfL6wGDQyvOi6Ez9Bpf1Fb7APKjIyVsft7FLGR6QqdRFTiceNQBm1In9aZyrXp33cZi9pUNqjHASdA=s170-no" alt="Profile"></button>
-        <div class="dropdown-content" id="profileDropdown">
-          <div class="card">
-            <img src="https://lh3.googleusercontent.com/oUUiPB9sq3ACq4bUaRmo8pgvC4FUpRRrQKcGIBSOsafawZfRpF1vruFeYt6uCfL6wGDQyvOi6Ez9Bpf1Fb7APKjIyVsft7FLGR6QqdRFTiceNQBm1In9aZyrXp33cZi9pUNqjHASdA=s170-no" alt="Person" class="card__image">
-            <p class="card__name">Venu</p>
-           
-            
-            <button class="btn draw-border">Profile</button>
-            <button class="btn draw-border" ng-click="logout()">Logout</button>
+      <h1 class="logo">MovieNest</h1>
+      <div class="video-carousel">
+        <div class="carousel-track">
+          <div class="carousel-item">
+            <iframe 
+                src="https://www.youtube.com/embed/I7c1etV7D7g?autoplay=1&mute=1&loop=1" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
+          </div>
+          <div class="carousel-item">
+            <iframe 
+                src="https://www.youtube.com/embed/_7L9F99K-kM?autoplay=1&mute=1&loop=1" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
+          </div>
+          <div class="carousel-item">
+            <iframe 
+                src="https://www.youtube.com/embed/1ovgxN2VWNc?autoplay=1&mute=1&loop=1" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
+      
+      <div class="profile-menu-container">
+        <button class="menu-btn" onclick="toggleMenu()">&#8942;</button>
+        <div class="menu-content" id="menuDropdown">
+          <button class="menu-item" ng-click="viewProfile()">Profile</button>
+          <button class="menu-item" ng-click="logout()">Logout</button>
+        </div>
+      </div>
+      <button class="watchlist-open-btn" ng-click="toggleWatchlist()">My Watchlist</button>
     </div>
-  
+    <!-- Profile Modal -->
+<div id="profile-modal" class="modal" ng-show="isProfileModalOpen">
+  <div class="modal-content">
+    <button class="close-btn" ng-click="closeProfileModal()">&times;</button>
+    <h2>Profile Details</h2>
+    <p><strong>ID:</strong> {{ userProfile.id }}</p>
+    <p><strong>Email:</strong> {{ userProfile.email }}</p>
+  </div>
+</div>
+
+<div class="features-section">
+  <div class="feature-item">
+    <div class="feature-icon">
+      🌍 <!-- Replace this emoji with an SVG or actual icon -->
+    </div>
+    <h3>Works Worldwide</h3>
+    <p>Access your favorite movies and shows from anywhere in the world. MovieApp ensures seamless streaming across countries so you never miss out, no matter where you are.</p>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">
+      📚 <!-- Replace this emoji with an SVG or actual icon -->
+    </div>
+    <h3>Thousands of Titles</h3>
+    <p>Explore a vast library of movies, TV shows, and documentaries. From action-packed blockbusters to timeless classics, MovieApp has something for everyone.</p>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">
+      💲 <!-- Replace this emoji with an SVG or actual icon -->
+    </div>
+    <h3>Always 100% Free</h3>
+    <p>Enjoy unlimited access to movies and shows without paying a dime. With MovieApp, there’s no subscription, no hidden fees—just entertainment on your terms.</p>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">
+      📱 <!-- Replace this emoji with an SVG or actual icon -->
+    </div>
+    <h3>Device-Friendly</h3>
+    <p>Stream your favorite content on any device. MovieApp works effortlessly on smartphones, tablets, smart TVs, and desktops, giving you the ultimate flexibility.</p>
+  </div>
+</div>
     
-  
-      <h1 class="title">Search A Movie</h1>
+    <!-- Search Section -->
+    <div class="search-part">
       <input type="text" ng-model="searchQuery" placeholder="Search for movies..." class="search-bar">
-      <button ng-click="searchMovies()" class="search-button" id="btn">Search</button>
+      <button ng-click="searchMovies()" class="search-button">Search</button>
+      <button id="mic-button" class="mic-button" onclick="startListening()">🎤</button>
       <br>
       <input type="text" ng-model="searchLanguage" placeholder="Language" class="search-bar">
       <input type="text" ng-model="searchYear" placeholder="Year" class="search-bar">
-      <input type="number" ng-model="searchTickets" placeholder="Tickets Available" class="search-bar">
       <button ng-click="searchMoviesWithFilters()" class="filter-button">Add Filters</button>
       <div ng-if="loading" class="loading">Loading...</div>
       <div ng-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-      <div class="grid">
-        <div class="movie-card" ng-repeat="movie in filteredMovies" ng-style="{'background-image': 'url(' + movie.i + ')'}" ng-click="playTrailer(movie.id)">
-          <div class="overlay">
-            <h2>{{ movie.l }}</h2>
-            <p>Year: {{ movie.y }}</p>
-            <p>Language: {{ movie.r }}</p>
-            <p>Vote Average: {{ movie.ad }}</p>
-            <p>Original Title: {{ movie.ol }}</p>
-            <p>Tickets Available: {{ movie.ticketsAvailable || 'N/A' }}</p>
+    </div>
+
+    <!-- Movie Cards Section -->
+    <div class="grid">
+      <div class="movie-card" ng-repeat="movie in filteredMovies" ng-style="{'background-image': 'url(' + movie.i + ')'}">
+        <div class="overlay">
+          <div class="card-buttons">
+            <button class="trailer-btn" title="Watch Trailer" ng-click="playTrailer(movie.id)">Watch Trailer</button>
+            <button class="info-btn" title="Info" ng-click="showInfo(movie)">Info</button>
+            <button class="watchlist-btn" title="Add to Watchlist" ng-click="addToWatchlist(movie)">Add to Watchlist</button>
           </div>
         </div>
       </div>
     </div>
-    <script>
-      function toggleDropdown() {
-        var profileDropdown = document.getElementById('profileDropdown');
-        if (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') {
-          profileDropdown.style.display = 'block';
-        } else {
-          profileDropdown.style.display = 'none';
-        }
-      }
-  
-      window.onclick = function(event) {
-        if (!event.target.matches('.nav-button')) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-              openDropdown.style.display = 'none';
-            }
+
+    <!-- Full-Screen Trailer Modal -->
+    <div id="side-trailer-modal" class="side-modal" ng-show="isTrailerModalOpen">
+      <div class="side-modal-content">
+        <button class="close-btn" ng-click="closeTrailerModal()">&times;</button>
+        <iframe ng-src="{{trustedTrailerUrl}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+    
+
+    <!-- Watchlist Modal -->
+    <div class="watchlist-modal" ng-show="isWatchlistOpen">
+      <div class="watchlist-content">
+        <button class="close-btn" ng-click="toggleWatchlist()">&#x2715;</button>
+        <h1 class="title">My Watchlist</h1>
+        <div class="watchlist-container" ng-if="watchlist.length > 0">
+          <div class="watchlist-card" ng-repeat="movie in watchlist">
+            <img ng-src="{{movie.i}}" alt="{{movie.l}}">
+            <div class="watchlist-details">
+              <h3>{{ movie.l }}</h3>
+              <p>Year: {{ movie.y }}</p>
+              <p>Language: {{ movie.r }}</p>
+            </div>
+            <button class="remove-btn" ng-click="removeFromWatchlist(movie)">Remove</button>
+          </div>
+        </div>
+        <div ng-if="watchlist.length === 0" class="empty-watchlist">Your watchlist is empty.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menuDropdown = document.getElementById('menuDropdown');
+      menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+   
+    window.onclick = function(event) {
+      if (!event.target.matches('.menu-btn')) {
+        const dropdowns = document.getElementsByClassName('menu-content');
+        for (let i = 0; i < dropdowns.length; i++) {
+          const openDropdown = dropdowns[i];
+          if (openDropdown.style.display === 'block') {
+            openDropdown.style.display = 'none';
           }
         }
       }
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="dashboardController.js"></script>
-  </body>
+    };
+    // Voice Search Functionality
+function startListening() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert('Your browser does not support speech recognition. Please use a supported browser like Chrome.');
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = 'en-US'; // Set language
+  recognition.interimResults = false; // Only finalize results
+  recognition.maxAlternatives = 1; // Single best match
+
+  recognition.start(); // Start speech recognition
+
+  recognition.onresult = function (event) {
+    const spokenText = event.results[0][0].transcript;
+    console.log('Recognized speech:', spokenText);
+
+    // Set the recognized text in the search bar and trigger the search
+    const searchInput = document.querySelector('[ng-model="searchQuery"]');
+    const scope = angular.element(searchInput).scope();
+    scope.$apply(() => {
+      scope.searchQuery = spokenText; // Set recognized text
+      scope.searchMovies(); // Trigger movie search
+    });
+  };
+
+  recognition.onerror = function (event) {
+    console.error('Speech recognition error:', event.error);
+    alert('An error occurred while recognizing your speech. Please try again.');
+  };
+
+  recognition.onend = function () {
+    console.log('Speech recognition ended.');
+  };
+}
+
+  </script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="dashboardController.js"></script>
 </body>
